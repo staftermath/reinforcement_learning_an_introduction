@@ -18,13 +18,8 @@ class Gridworld:
         self._height = height
         self._width = width
         self.state_values = np.zeros((height, width))
-        self.action_values = np.zeros((height, width))
         self.actions = [(0, 1), (0, -1), (1, 0), (-1, 0)]
-        self.rewards = self.get_possible_rewards()
         self.build_state_value()
-
-    def get_possible_rewards(self):
-        return [self.reward_leaving_board, 0., self.reward_leaving_A, self.reward_leaving_B]
 
     def step(self, action, state):
         if state == self.state_A:
@@ -64,5 +59,20 @@ class Gridworld:
     def get_action_probabilities(self, action: tuple, state: tuple):
         return 1./len(self.actions)
 
-    def build_action_value(self):
-        pass
+    def build_optimum_state_value(self):
+        last_state_values = np.ones((self._height, self._width))
+        state_values = np.zeros((self._height, self._width))
+        difference = 0.1
+        while difference > 1e-5:
+            for i in range(self._height):
+                for j in range(self._width):
+                    state = (i, j)
+                    return_values = []
+                    for action in self.actions:
+                        next_state, reward = self.step(action, state)
+                        return_values.append(reward + self.gamma * last_state_values[next_state[0], next_state[1]])
+                    state_values[i, j] = np.max(return_values)
+            difference = np.abs(np.sum(state_values - last_state_values))
+            last_state_values = state_values.copy()
+
+        self.state_values = last_state_values

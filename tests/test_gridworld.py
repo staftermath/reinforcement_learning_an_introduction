@@ -30,3 +30,14 @@ def test_get_state_value_correctly(gridworld):
                          [-1.9, -1.3, -1.2, -1.4, -2.0]
                          ])
     assert_almost_equal(np.round(gridworld.state_values, decimals=1), expected)
+
+
+def test_get_optimum_state_value_correctly(gridworld):
+    gridworld.build_optimum_state_value()
+    expected = np.array([[22.0, 24.4, 22.0, 19.4, 17.5],
+                         [19.8, 22.0, 19.8, 17.8, 16.0],
+                         [17.8, 19.8, 17.8, 16.0, 14.4],
+                         [16.0, 17.8, 16.0, 14.4, 13.0],
+                         [14.4, 16.0, 14.4, 13.0, 11.7]
+                         ])
+    assert_almost_equal(np.round(gridworld.state_values, decimals=1), expected)
