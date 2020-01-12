@@ -1,7 +1,7 @@
 import pytest
 import numpy as np
 from numpy.testing import assert_almost_equal
-from multi_armed_bandits.multi_armed_bandits import Bandit
+from multi_armed_bandits import Bandit
 
 
 @pytest.mark.parametrize(("q_approximation", "n_actions", "expected"),

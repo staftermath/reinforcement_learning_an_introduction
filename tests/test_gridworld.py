@@ -1,7 +1,7 @@
 import pytest
 import numpy as np
 from numpy.testing import assert_almost_equal
-from gridworld.gridworld import Gridworld
+from gridworld import Gridworld
 
 
 @pytest.fixture()
